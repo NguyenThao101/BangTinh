@@ -1,0 +1,218 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Table</h1>
+<table border="1" width="680px" height="600px">
+    <tr>
+        <td>Sản phẩm:</td>
+        <td colspan="3"> Hương vải  hộp</td>
+
+    </tr>
+    <tr>
+        <td>Giá bán lẻ:</td>
+        <td>
+            <input type="number" bind="@giaLe"
+                   step="1000"
+                   class="form-control"
+                   placeholder="Nhập giá (nghìn đồng)" />
+        </td>
+        <td>QC:</td>
+        <td>48</td>
+    </tr>
+    <tr>
+        <td>Giá bán thùng:</td>
+        <td>
+            <input type="number" bind="@giaThung"
+                   step="1000"
+                   class="form-control"
+                   placeholder="Nhập giá (nghìn đồng)" />
+        </td>
+        <td>Tồn</td>
+        <td>T/L</td>
+    </tr>
+    <tr>
+        <td>Đơn vị tính:</td>
+        <td>
+            <input type="text" placeholder="Nhập đơn vị" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Số lượng:</td>
+        <td>
+            <input type="number" placeholder="Nhập số lượng" @bind-value="SoLuong" class="form-control" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Đơn giá:</td>
+        <td>
+            <input type="number" @bind-value="DonGia"
+                   step="1000"
+                   class="form-control"
+                   placeholder="Nhập giá trị (nghìn đồng)" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class=" tinhTien">Tiền hàng:</td>
+        <td>
+            @TienHang
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>%CK quy định:</td>
+        <td>
+            <input type="number" bind="@ckQuyDinh"
+                   step="1"
+                   class="form-control"
+                   placeholder="Nhập CK (dv %)" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>%CK bán:</td>
+        <td>
+            <input style="" type="number" bind="@ckBan"
+                   step="0.01"
+                   class="form-control"
+                   placeholder="Nhập CK(dv%)" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Tiền chiết khấu:</td>
+        <td>
+            <input type="number" bind="@tienCK"
+                   step="1000"
+                   class="form-control"
+                   readonly />
+        </td>
+        <td>Giá bán:</td>
+        <td>
+            <input type="number" bind="@giaBan"
+                   step="1000"
+                   class="form-control"
+                   readonly />
+        </td>
+    </tr>
+    <tr>
+        <td>%NPP</td>
+        <td>
+            <input type="number" bind="@npp"
+                   step="0.01"
+                   class="form-control"
+                   placeholder="Nhập giá trị (%)" />
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Tiền CK NPP</td>
+        <td>
+            <input type="number" bind="@tienCKNPP"
+                   step="1000"
+                   class="form-control"
+                   readonly />
+        </td>
+        <td>Giá bán:</td>
+        <td>
+            <input type="number" bind="@giaBan2"
+                   step="1000"
+                   class="form-control"
+                   readonly />
+        </td>
+    </tr>
+    <tr>
+        <td>%CK sale:</td>
+        <td>
+            <input type="number" bind="@tienCKSale"
+                   step="0.01"
+                   class="form-control"
+                   placeholder="Nhập %CK sale" />
+        </td>
+        <td>Giá bán:</td>
+        <td>
+            <input type="number" bind="@giaBan2"
+                   step="1"
+                   class="form-control"
+                   readonly />
+        </td>
+    </tr>
+    <tr>
+        <td>Trả thưởng:</td>
+        <td>20000</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Thành tiền:</td>
+        <td>
+            <input type="number" bind="@thanhTien"
+                   step="1000"
+                   class="form-control"
+                   readonly />
+        </td>
+        <td></td>
+        <td></td>
+
+    </tr>
+</table>
+<br />
+<button width="20px">Lưu</button>
+@code {
+    public int giaLe { get; set; } = 0;
+    public int soLuong { get; set; } = 0;
+    public int giaThung { get; set; } = 0;
+    public int tienHang { get; set; } = 0;
+    public int donGia { get; set; } = 0;
+    public int ckQuyDinh { get; set; } = 0;
+    public int giaBan;
+    public double ckBan { get; set; } = 0;
+    public int tienCK { get; set; } = 0;
+    public int npp { get; set; } = 0;
+    public int giaBan2;
+    public int tienCKNPP;
+    public double tienCKSale;
+    public int thanhTien;
+
+    private int DonGia
+    {
+        get => donGia;
+        set
+        {
+            donGia = value;
+            TinhTienHang();
+        }
+    }
+
+    private int SoLuong
+    {
+        get => soLuong;
+        set
+        {
+            soLuong = value;
+            TinhTienHang();
+        }
+    }
+
+    private int TienHang { get; set; }
+
+    private void TinhTienHang()
+    {
+        TienHang = DonGia * SoLuong;
+        System.Diagnostics.Debug.WriteLine($"Đơn giá: {DonGia}");
+        System.Diagnostics.Debug.WriteLine($"Số lượng: {SoLuong}");
+        System.Diagnostics.Debug.WriteLine($"Tiền hàng: {TienHang}");
+    }
+}
+
